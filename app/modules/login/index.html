@@ -13,11 +13,11 @@ Date: 24 Dec 2015
                 <form name="vm.loginForm" class="form-horizontal" data-ng-submit="vm.login(vm.getUser);">
                     <div class="col-xs-12 input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="login-username" type="text" class="form-control" name="username" value="admin" placeholder="Username" data-ng-model="vm.getUser.Username" required>
+                        <input id="login-username" type="text" class="form-control" name="username" placeholder="username" data-ng-model="vm.getUser.username" required>
                     </div>
                     <div class="col-xs-12 input-group margin-top-20">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="login-password" type="password" class="form-control" name="password" placeholder="Password" data-ng-model="vm.getUser.Password" required value="admin">
+                        <input id="login-password" type="password" class="form-control" name="password" placeholder="password" data-ng-model="vm.getUser.password" required>
                     </div>
                     <div class="col-xs-12 margin-top-20">
                         <span class="pull-left">
@@ -49,19 +49,19 @@ Date: 24 Dec 2015
                     <div class="form-group">
                         <label for="email" class="col-md-12 control-label">Email</label>
                         <div class="col-md-12">
-                            <input type="email" class="form-control" name="email" placeholder="Email Address" required data-ng-model="vm.setUser.Email">
+                            <input type="email" class="form-control" name="email" placeholder="Email Address" required data-ng-model="vm.setUser.email">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="lastname" class="col-md-12 control-label margin-top-10">User Name</label>
                         <div class="col-md-12">
-                            <input type="text" class="form-control" name="lastname" placeholder="Last Name" required data-ng-model="vm.setUser.Username">
+                            <input type="text" class="form-control" name="lastname" placeholder="Last Name" required data-ng-model="vm.setUser.username">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-md-12 control-label margin-top-10">Password</label>
                         <div class="col-md-12">
-                            <input type="password" class="form-control" name="password" placeholder="Password" required data-ng-model="vm.setUser.Password">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required data-ng-model="vm.setUser.password">
                         </div>
                     </div>
 

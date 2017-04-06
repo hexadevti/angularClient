@@ -18,27 +18,22 @@ function ($rootScope, $scope, $state, $location, loginService, Flash, apiService
 
         //access login
         vm.login = function (data) {
-            if (data.Username == "admin") {
-                if (data.Password == "admin") {
-                    $state.go('app.dashboard');
-                }
-                else
-                    Flash.create('danger', 'Invalid Password', 'large-text');
-            }
-            else
-                Flash.create('danger', 'Invalid Username', 'large-text');
+            loginService.accessLogin(data).then(function (response) {
+                $state.go('app.dashboard'); 
+            },
+            function(response) {
+                Flash.create('danger', response.return, 'large-text');
+            });
         };
 
         //get registration details
         vm.register = function () {
-            if (vm.setUser.confirmPassword == vm.setUser.Password){
+            if (vm.setUser.confirmPassword == vm.setUser.password){
                 loginService.registerUser(vm.setUser).then(function (response) {
-                    if (response.message == 'success')
-                console.log('after post>>',response);
-                //if (response.length > 0)
-                //    $state.go('app');
-                //else
-                //    Flash.create('danger', 'Invalid Credentials', 'large-text');
+                $state.go('app.dashboard'); 
+            },
+            function(response) {
+                Flash.create('danger', response.return, 'large-text');
             });
             }
         };

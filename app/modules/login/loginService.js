@@ -8,7 +8,7 @@
 ===========================================================*/
 
 
-login.service('loginService', ['$http', '$q', 'Flash', 'apiService', function ($http, $q, Flash, apiService) {
+login.service('loginService', ['$http', '$q', '$cookieStore', 'Flash', 'apiService',  function ($http, $q, $cookieStore ,Flash, apiService) {
 
     var loginService = {};
 
@@ -16,9 +16,17 @@ login.service('loginService', ['$http', '$q', 'Flash', 'apiService', function ($
     //service to communicate with users model to verify login credentials
     var accessLogin = function (parameters) {
         var deferred = $q.defer();
-        apiService.get("users", parameters).then(function (response) {
-            if (response)
-                deferred.resolve(response);
+        apiService.post("auth", parameters).then(function (response) {
+            if (response) {
+                if (response.success) {
+                    $cookieStore.put('token', response.return);
+                    deferred.resolve(response);
+                }
+                else {
+                    deferred.reject(response);
+                }
+
+            }
             else
                 deferred.reject("Something went wrong while processing your request. Please Contact Administrator.");
         },
@@ -33,9 +41,12 @@ login.service('loginService', ['$http', '$q', 'Flash', 'apiService', function ($
         var deferred = $q.defer();
         apiService.create("users", parameters).then(function (response) {
             if (response)
-                deferred.resolve(response);
-            else
-                deferred.reject("Something went wrong while processing your request. Please Contact Administrator.");
+                if (response.success) {
+                    deferred.resolve(response);
+                }
+                else {
+                    deferred.reject(response);
+                }
         },
             function (response) {
                 deferred.reject(response);

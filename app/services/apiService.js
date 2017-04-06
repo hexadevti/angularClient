@@ -24,16 +24,25 @@ app.service('apiService', ['$http', '$q', 'appSettings', function ($http, $q, ap
         return deferred.promise;
     };
 
+    var post = function (module, parameter) {
+        var deferred = $q.defer();
+        $http.post(apiBase + module, { params: parameter }, { headers: { 'Content-Type': 'application/json' } }).success(function (response) {
+            deferred.resolve(response);
+        }).catch(function (data, status, headers, config) { // <--- catch instead error
+            deferred.reject(data.statusText);
+        });
+
+        return deferred.promise;
+    };
+
     //===========================CREATE RESOURCE==============================
     var create = function (module, parameter) {
         console.log("hitting Service=============");
 
         var deferred = $q.defer();
 
-        $http.post(apiBase + module, parameter, { headers: { 'Content-Type': 'application/json' } }).success(function (response) {
-
+        $http.post(apiBase + module, { params: parameter }, { headers: { 'Content-Type': 'application/json' } }).success(function (response) {
             deferred.resolve(response);
-
         }).catch(function (data, status, headers, config) { // <--- catch instead error
             deferred.reject(data.statusText);
         });
@@ -82,7 +91,7 @@ app.service('apiService', ['$http', '$q', 'appSettings', function ($http, $q, ap
 
 
     apiService.get = get;
-
+    apiService.post = post;
     apiService.create = create;
     apiService.update = update;
     apiService.delet = delet;
